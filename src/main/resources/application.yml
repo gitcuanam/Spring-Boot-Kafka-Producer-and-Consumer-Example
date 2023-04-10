@@ -1,2 +1,12 @@
 server:
-   port: 9091
+    port: 8000
+kafka:
+    consumer:
+        bootstrap: localhost:29092
+        group: test-group
+        topic: test-topic
+    producer:
+        bootstrap: localhost:29092
+        topic: test-topic
+connection:
+    timeout: 60000

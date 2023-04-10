@@ -11,5 +11,12 @@ This tutorial covers below points.
 5. How to create kafka producer to send string and json type messages.
 6. How to create kafka consumer to receive string and json message.
 
-
-
+Sample request
+POST: localhost:8000/produce/message/
+```json
+{
+    "id": 54235345,
+	"name": "Charles",
+	"rollNumber": "42423"
+}
+```
