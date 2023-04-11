@@ -20,3 +20,9 @@ POST: localhost:8000/produce/message/
 	"rollNumber": "42423"
 }
 ```
+Note that when you build a multi-module maven project, follow these steps:
+1. `"Unable to find main class" with Maven on spring-boot project ` indicates that your spring boot app MUST HAVE an entry point to start. To override this behavior, check the SO answer [here](https://stackoverflow.com/a/56535517)
+2. `Failed to read artifact descriptor for`. This error may occur due to variety of reasons, such as incorrect version or artifact names, missing dependencies, or incorrect repository setting.
+TL;DR: <small>To resolve this issue, you can try checking and updating the artifact and version names as necessary. You may also need to check your dependency tree to ensure that all required dependencies are correctly specified.</small>
+If these configurtion are matches, but if still doesn't fix the problem, try refreshing the project. Build the required project first, then the parent project, finally the dependant projects.
+
