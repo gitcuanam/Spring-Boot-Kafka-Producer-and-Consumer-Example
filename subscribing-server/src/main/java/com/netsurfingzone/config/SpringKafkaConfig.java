@@ -4,11 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.RoundRobinAssignor;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
@@ -20,11 +24,26 @@ import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import com.netsurfingzone.constant.ApplicationConstant;
+import com.netsurfingzone.consumer.KafkaConsumer;
 import com.netsurfingzone.dto.Student;
 
 @Configuration
 @EnableKafka
 public class SpringKafkaConfig {
+
+    @Bean
+    public ApplicationRunner runner(ApplicationContext context) {
+        return args -> {
+            context.getBean(KafkaConsumer.class);
+            context.getBean(KafkaConsumer.class);
+        };
+    }
+
+	@Bean
+	@Scope("prototype")
+	KafkaConsumer consumer() {
+		return new KafkaConsumer();
+	}
 
 	@Bean
 	public ProducerFactory<String, Object> producerFactory() {
@@ -48,6 +67,7 @@ public class SpringKafkaConfig {
 		configMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 		configMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
 		configMap.put(ConsumerConfig.GROUP_ID_CONFIG, ApplicationConstant.GROUP_ID_JSON);
+        configMap.put(ConsumerConfig.PARTITION_ASSIGNMENT_STRATEGY_CONFIG, RoundRobinAssignor.class.getName());
 		configMap.put(JsonDeserializer.TRUSTED_PACKAGES, "com.netsurfingzone.dto");
 		return new DefaultKafkaConsumerFactory<>(configMap);
 	}
