@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>notification-service</artifactId>
+    <groupId>notification-service</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+	<packaging>jar</packaging>
+  <modelVersion>4.0.0</modelVersion>
+
+  <artifactId>dto</artifactId>
+
+  <properties>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+  </properties>
+
+  <build>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+    <!-- if you don't have a main class in springboot project, you can execution spring-boot-maven-plugin by follow -->
+    <!-- https://stackoverflow.com/questions/42937577/unable-to-find-main-class-with-maven-on-spring-boot-project-in-eclipse -->
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <configuration>
+            <skip>true</skip>
+          </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
