@@ -1,5 +1,7 @@
 package com.netsurfingzone.producer;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +21,9 @@ public class KafkaProducer {
 
 	@PostMapping("/message")
 	public String sendMessage(@RequestBody Student message) {
-
+        String messageId = UUID.randomUUID().toString();
 		try {
-			kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, message);
+			kafkaTemplate.send(ApplicationConstant.TOPIC_NAME, messageId, message);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
